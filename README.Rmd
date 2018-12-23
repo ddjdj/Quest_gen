@@ -1,0 +1,11 @@
+---
+title: "README.rmd"
+author: "Daniel De Jesus De Jesus"
+date: "December 23, 2018"
+output: html_document
+---
+
+'''{r}
+
+# Generate questions from texts
+'''
