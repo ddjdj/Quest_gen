@@ -1,11 +1,25 @@
 library(tidyverse)
-library(rvest)
 library(magrittr)
 library(stringr)
+library(quanteda)
+library(readtext)
+library(ggplot2)
+library(e1071)
+library(irlba)
+library(randomForest)
+library(tm)
+library(plyr)
+library(class)
 
-webpage <- read_html("https://en.wikipedia.org/wiki/Albert_Einstein")
-table <- webpage %>% 
-  html_nodes("table.vcard") %>%
-  html_table(header = F)
-table <- table[[1]]
-dict <- as.data.frame(table)
+dat <- paste(readLines('einstein.txt'), collapse=" ")
+str(dat)
+
+# clean text
+cleanCorpus <- function(corpus){
+  corpus.tmp <- tm_map(corpus, removePunctuation)
+  corpus.tmp <- tm_map(corpus.tmp, stripWhitespace)
+  corpus.tmp <- tm_map(corpus.tmp, tolower)
+  corpus.tmp <- tm_map(corpus.tmp, removeWords, stopwords("english"))
+  return (corpus.tmp)
+}
+
