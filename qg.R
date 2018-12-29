@@ -10,16 +10,21 @@ library(randomForest)
 library(tm)
 library(plyr)
 library(class)
+library(NLP)
 
 dat <- paste(readLines('einstein.txt'), collapse=" ")
 str(dat)
 
-# clean text
-cleanCorpus <- function(corpus){
-  corpus.tmp <- tm_map(corpus, removePunctuation)
-  corpus.tmp <- tm_map(corpus.tmp, stripWhitespace)
-  corpus.tmp <- tm_map(corpus.tmp, tolower)
-  corpus.tmp <- tm_map(corpus.tmp, removeWords, stopwords("english"))
-  return (corpus.tmp)
-}
+dat1 <- gsub(pattern="\\W", replace=" ", dat)
+dat2 <- gsub(pattern="====", replace=" ", dat1)
+dat2 <- gsub(pattern="===", replace=" ", dat2)
+dat2 <- gsub(pattern="==", replace=" ", dat2)
+dat2 <- gsub(pattern="\"", replace=" ", dat2)
+dat2 <- tolower(dat2)
+dat2 <- removeWords(dat2, stopwords())
+dat2 <- gsub(pattern="\\b[A-z]\\b{1}", replace=" ", dat2)
+dat2 <- stripWhitespace(dat2)
+head(dat2)
+
+
 
