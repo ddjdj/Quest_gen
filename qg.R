@@ -11,6 +11,8 @@ library(tm)
 library(plyr)
 library(class)
 library(NLP)
+library(stringr)
+library(wordcloud)
 
 dat <- paste(readLines('einstein.txt'), collapse=" ")
 str(dat)
@@ -24,7 +26,8 @@ dat2 <- tolower(dat2)
 dat2 <- removeWords(dat2, stopwords())
 dat2 <- gsub(pattern="\\b[A-z]\\b{1}", replace=" ", dat2)
 dat2 <- stripWhitespace(dat2)
+dat2 <- str_split(dat2, pattern="\\s+")
+dat2 <- unlist(dat2)
 head(dat2)
-
 
 
