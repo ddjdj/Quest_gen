@@ -29,4 +29,8 @@ dat4 <- as.matrix(dat3)
 dat4
 frequency <- colSums(dat4)
 frequency <- sort(frequency, decreasing = TRUE)
-head(frequency)
+words <- names(frequency)
+wordcloud(words[1:100], frequency[1:100])
+
+
+
