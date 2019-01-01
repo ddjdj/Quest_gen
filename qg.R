@@ -34,11 +34,19 @@ View(dat)
 nrow(dat)
 ncol(dat)
 
-prop.table(table(dat$label))
+
+sci_tokens <- tokens(dat$text, what = "word",
+                     remove_numbers = TRUE, remove_symbols = TRUE,
+                     remove_punct = TRUE, remove_hyphens = TRUE  )
+                     
+
+sci_tokens <- tokens_select(sci_tokens, stopwords(), selection = "remove")
+sci_tokens <- tokens_wordstem(sci_tokens, language = "english")
+sci_tokens
+View(sci_tokens)
+#prop.table(table(dat$label))
 #corpus <- corpus(dat)
 #corpus <- tokens(corpus)
-
-
 #corpus <- tokens_remove(tokens(corpus, removePunctuation = TRUE), stopwords("english"))
 #corpus <- Corpus(VectorSource(as.vector(corpus)))
 #clean_corpus <- function(corpus) {
@@ -47,22 +55,19 @@ prop.table(table(dat$label))
   #return(corpus)
   
 #}
-
+#Corpus
 
 #str(corpus)
-
+#corpus
 
 #dat1 <- tm_map(corpus, PlainTextDocument)
 #dat1 <- Corpus(vectorSource(dat1)) 
-
-
-
 #dat1 <- tm_map(dat1, content_transformer(tolower))
 #dat1 <- tm_map(dat1, removeWords, stopwords("en"))
 #dat1 <- tm_map(dat1, removePunctuation)
 #dat1 <- tm_map(dat1, stripWhitespace)
 
-#inspect(dat1)
+#inspect(dat)
 
 
 #dat2 <- DocumentTermMatrix(corpus)
