@@ -14,21 +14,27 @@ library(NLP)
 library(stringr)
 library(wordcloud)
 
-#dat <- paste(readLines('einstein.txt'), collapse = '.')
+
 dat <- readLines('einstein.txt')
 for (r in seq_along(dat)) {
-  #print(paste("line", r, "is", dat[r]))
   print(paste( dat[r]))
+ 
 }
 
 
 str(dat)
 dat <- data.frame(label = 1, dat = dat)
 names(dat) <- c("label", "text")
+dat$label <- as.factor(dat$label)
+str(dat)
+dat$text <- as.character(dat$text)
+dat$length <- nchar(dat$text)
+dat <- dat[which(dat$length > 0), ]
 View(dat)
 nrow(dat)
 ncol(dat)
 
+prop.table(table(dat$label))
 #corpus <- corpus(dat)
 #corpus <- tokens(corpus)
 
