@@ -49,34 +49,44 @@ View(dat)
 nrow(dat)
 ncol(dat)
 
-sci_tokens <- tokens(dat$text, what = "word",
-                     remove_numbers = TRUE, remove_symbols = TRUE,
-                     remove_punct = TRUE, remove_hyphens = TRUE  )
-                     
-
-sci_tokens <- tokens_select(sci_tokens, stopwords(), selection = "remove")
-sci_tokens <- tokens_wordstem(sci_tokens, language = "english")
-sci_tokens
-View(sci_tokens)
-sci_tokens.dfm <- dfm(sci_tokens)
-sci_tokens.dfm <- as.matrix(sci_tokens.dfm)
-sci_tokens.dfm[1:20, 1:100]
-dim(sci_tokens.dfm)
-
-zx <-prop.table(table(dat$label))
-zx
-
-
 ggplot(dat, aes(x = length, fill = label)) +
   theme_bw() +
   geom_histogram(binwidth = 400) +
   labs(x = "Length of Text", y = "number of texts",
        title = "Number of Texts by Length and Labels") 
-  
+
+
 set.seed(1)
 # create 70%/30% split
 indx <- createDataPartition(dat$label, times = 1, p = 0.7, list = FALSE)
 train <- dat[indx,]
 test <-  dat[-indx,]
+
+prop.table(table(train$label))
+prop.table(table(test$label))
+
+
+train_tokens <- tokens(train$text, what = "word",
+                     remove_numbers = TRUE, remove_symbols = TRUE,
+                     remove_punct = TRUE, remove_hyphens = TRUE  )
+                     
+
+train_tokens <- tokens_select(train_tokens, stopwords(), selection = "remove")
+train_tokens <- tokens_wordstem(train_tokens, language = "english")
+train_tokens
+View(train_tokens)
+
+zx <-prop.table(table(train_tokens$label))
+zx
+
+
+train_tokens.dfm <- dfm(train_tokens)
+train_tokens.dfm <- as.matrix(train_tokens.dfm)
+train_tokens.dfm[1:20, 1:100]
+dim(train_tokens.dfm)
+
+
+
+
 
 
