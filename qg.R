@@ -14,7 +14,7 @@ library(class)
 library(NLP)
 library(stringr)
 library(wordcloud)
-
+library(doSNOW)
 
 dat <- readLines('einstein.txt')
 
@@ -85,8 +85,27 @@ train_tokens.dfm <- as.matrix(train_tokens.dfm)
 train_tokens.dfm[1:20, 1:100]
 dim(train_tokens.dfm)
 
+train_tokens.df <- cbind(TLabel = train$label, as.data.frame(train_tokens.dfm))
+names(train_tokens.df)[c(10, 50, 70)]
+names(train_tokens.df) <- make.names(names(train_tokens.df))
+names(train_tokens.df)[c(10, 50, 70)]
+
+set.seed(2)
+cv.folds <- createMultiFolds(train$label, k = 10, times = 3)
+cv.Cntrl <- trainControl(method = "repeatedcv",number = 10, repeats  = 3, index=cv.folds)
+cl <- makeCluster(3, type="SOCK")
+registerDoSNOW(cl)
 
 
+rpart.cv.1 <- train(TLabel~., data= train_tokens.df, method='rpart',
+                    trControl = cv.Cntrl, tuneLength = 7 )
+  
+stopCluster(cl)
 
 
+#results
+rpart.cv.1
 
+  
+  
+  
