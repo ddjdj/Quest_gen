@@ -48,7 +48,6 @@ View(dat)
 nrow(dat)
 ncol(dat)
 
-
 sci_tokens <- tokens(dat$text, what = "word",
                      remove_numbers = TRUE, remove_symbols = TRUE,
                      remove_punct = TRUE, remove_hyphens = TRUE  )
@@ -63,6 +62,16 @@ sci_tokens.dfm <- as.matrix(sci_tokens.dfm)
 sci_tokens.dfm[1:20, 1:100]
 dim(sci_tokens.dfm)
 
+zx <-prop.table(table(dat$label))
+zx
+
+
+ggplot(dat, aes(x = length, fill = label)) +
+  theme_bw() +
+  geom_histogram(binwidth = 400) +
+  labs(x = "Length of Text", y = "number of texts",
+       title = "Number of Texts by Length and Labels") 
+  
 
 
 
