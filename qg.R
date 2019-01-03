@@ -44,6 +44,10 @@ sci_tokens <- tokens_select(sci_tokens, stopwords(), selection = "remove")
 sci_tokens <- tokens_wordstem(sci_tokens, language = "english")
 sci_tokens
 View(sci_tokens)
+sci_tokens.dfm <- dfm(sci_tokens)
+sci_tokens.dfm <- as.matrix(sci_tokens.dfm)
+sci_tokens.dfm[1:20, 1:100]
+dim(sci_tokens.dfm)
 #prop.table(table(dat$label))
 #corpus <- corpus(dat)
 #corpus <- tokens(corpus)
