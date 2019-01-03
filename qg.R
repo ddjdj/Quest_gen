@@ -21,21 +21,23 @@ for (r in seq_along(dat)) {
   print(paste( dat[r]))
  
 }
-dat <- data.frame(label = 1, dat = dat)
+dat <- data.frame( label = 1, data = dat)
+View(dat)
 
 
-
-dat <- readLines('MichaelJordan.txt')
+dat2 <- readLines('MichaelJordan.txt')
 
 for (r in seq_along(dat2)) {
   print(paste( dat2[r]))
   
 }
-dat2 <- data.frame(label = 2, dat = dat)
-
+dat2 <- data.frame( label = 2, data = dat2)
+View(dat2)
 
 dat <-rbind(dat, dat2)
 
+head(dat)
+tail(dat)
 names(dat) <- c("label", "text")
 dat$label <- as.factor(dat$label)
 str(dat)
