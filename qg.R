@@ -1,4 +1,5 @@
 library(tidyverse)
+library(caret)
 library(magrittr)
 library(stringr)
 library(quanteda)
@@ -72,6 +73,10 @@ ggplot(dat, aes(x = length, fill = label)) +
   labs(x = "Length of Text", y = "number of texts",
        title = "Number of Texts by Length and Labels") 
   
-
+set.seed(1)
+# create 70%/30% split
+indx <- createDataPartition(dat$label, times = 1, p = 0.7, list = FALSE)
+train <- dat[indx,]
+test <-  dat[-indx,]
 
 
