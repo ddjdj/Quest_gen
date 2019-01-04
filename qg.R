@@ -108,4 +108,25 @@ rpart.cv.1
 
   
   
+term_frequency <- function(row){
+  row/sum(row)
+}
+
+inverse_freq <- function(col){
+  corpus_size <- length(col)
+  doc_count <- length(which(col > 0))
+  log10(corpus_size/doc_count)
   
+  
+}
+
+
+tf_idf <- function(tf, idf){
+  tf*idf
+}
+
+train_tokens.df <- apply(train_tokens.dfm,1,term_frequency)
+dim(train_tokens.df)
+View(train_tokens.df)
+
+
